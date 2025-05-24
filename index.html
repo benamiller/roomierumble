@@ -1,118 +1,204 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roomie Rumble</title>
-<link type="text/css" rel="stylesheet" href="./style.css"/>
-<script src="./script.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
 </head>
 <body>
 
-<nav>
+<nav class="animate-on-scroll fade-in-down">
   <ul>
     <li><a href="#teams">Teams</a></li>
     <li><a href="#schedule">Schedule</a></li>
-    <li><a href="#format">Tournament Format</a></li>
-    <li><a href="#standings">Current Standings</a></li>
+    <li><a href="#format">Format</a></li>
+    <li><a href="#standings">Standings</a></li>
   </ul>
 </nav>
 
-<header>
+<header class="animate-on-scroll fade-in">
   <h1>Roomie Rumble</h1>
 </header>
 
-<section id="teams">
-  <h2>Teams</h2>
-  <ul>
-    <li>
-      <h3>Valkyrae</h3>
-      <ul>
-	<li><a href="https://www.twitch.tv/shiphtur" target="_blank">Shiphtur</a></li>
-	<li><a href="https://www.twitch.tv/tarik" target="_blank">tarik</a></li>
-	<li><a href="https://www.twitch.tv/yvonnie" target="_blank">yvonnie</a></li>
-	<li><a href="https://www.twitch.tv/qtcinderella" target="_blank">QTCinderella</a></li>
-      </ul>
-    </li>
-    <li>
-      <h3>TinaKitten</h3>
-      <ul>
-	<li><a href="https://www.twitch.tv/ballslol" target="_blank">ballslol</a></li>
-	<li><a href="https://www.twitch.tv/abe" target="_blank">Abe</a></li>
-	<li><a href="https://www.twitch.tv/fanfan" target="_blank">fanfan</a></li>
-	<li><a href="https://www.twitch.tv/itsryanhiga" target="_blank">itsRyanHiga</a></li>
-      </ul>
-    </li>
-    <li>
-      <h3>Kkatamina</h3>
-      <ul>
-	<li><a href="https://www.twitch.tv/ludwig" target="_blank">LudLig</a></li>
-	<li><a href="https://www.twitch.tv/hjune" target="_blank">hJune</a></li>
-	<li><a href="https://www.twitch.tv/shxtou" target="_blank">shxtou</a></li>
-	<li><a href="https://www.twitch.tv/lilypichu" target="_blank">lilypichu</a></li>
-      </ul>
-    </li>
-    <li>
-      <h3>Fuslie</h3>
-      <ul>
-	<li><a href="https://www.twitch.tv/masayoshi" target="_blank">Masayoshi</a></li>
-	<li><a href="https://www.twitch.tv/foolish" target="_blank">Foolish</a></li>
-	<li><a href="https://www.twitch.tv/xchocobars" target="_blank">xChocoBars</a></li>
-	<li><a href="https://www.twitch.tv/ellum" target="_blank">ellum</a></li>
-      </ul>
-    </li>
-  </ul>
-</section>
+<main class="container">
+  <section id="teams" class="animate-on-scroll slide-in-up">
+    <h2>Meet The Teams</h2>
+    <div class="teams-content-area">
+      <div class="team-card" data-index="0">
+        <div class="team-captain">
+          <img src="https://placehold.co/150x150/3A3A5A/E0E0E0?text=Valkyrae" alt="Valkyrae">
+          <h3>Valkyrae</h3>
+        </div>
+        <ul class="team-players">
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=S" alt="Shiphtur"><a href="https://www.twitch.tv/shiphtur" target="_blank">Shiphtur</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=T" alt="tarik"><a href="https://www.twitch.tv/tarik" target="_blank">tarik</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=Y" alt="yvonnie"><a href="https://www.twitch.tv/yvonnie" target="_blank">yvonnie</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=Q" alt="QTCinderella"><a href="https://www.twitch.tv/qtcinderella" target="_blank">QTCinderella</a></li>
+        </ul>
+      </div>
+      <div class="team-card" data-index="1">
+        <div class="team-captain">
+          <img src="https://placehold.co/150x150/3A3A5A/E0E0E0?text=TinaKitten" alt="TinaKitten">
+          <h3>TinaKitten</h3>
+        </div>
+        <ul class="team-players">
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=B" alt="ballslol"><a href="https://www.twitch.tv/ballslol" target="_blank">ballslol</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=A" alt="Abe"><a href="https://www.twitch.tv/abe" target="_blank">Abe</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=F" alt="fanfan"><a href="https://www.twitch.tv/fanfan" target="_blank">fanfan</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=R" alt="itsRyanHiga"><a href="https://www.twitch.tv/itsryanhiga" target="_blank">itsRyanHiga</a></li>
+        </ul>
+      </div>
+      <div class="team-card" data-index="2">
+        <div class="team-captain">
+          <img src="https://placehold.co/150x150/3A3A5A/E0E0E0?text=Kkatamina" alt="Kkatamina">
+          <h3>Kkatamina</h3>
+        </div>
+        <ul class="team-players">
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=L" alt="LudLig"><a href="https://www.twitch.tv/ludwig" target="_blank">LudLig</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=H" alt="hJune"><a href="https://www.twitch.tv/hjune" target="_blank">hJune</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=S" alt="shxtou"><a href="https://www.twitch.tv/shxtou" target="_blank">shxtou</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=L" alt="lilypichu"><a href="https://www.twitch.tv/lilypichu" target="_blank">lilypichu</a></li>
+        </ul>
+      </div>
+      <div class="team-card" data-index="3">
+        <div class="team-captain">
+          <img src="https://placehold.co/150x150/3A3A5A/E0E0E0?text=Fuslie" alt="Fuslie">
+          <h3>Fuslie</h3>
+        </div>
+        <ul class="team-players">
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=M" alt="Masayoshi"><a href="https://www.twitch.tv/masayoshi" target="_blank">Masayoshi</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=F" alt="Foolish"><a href="https://www.twitch.tv/foolish" target="_blank">Foolish</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=X" alt="xChocoBars"><a href="https://www.twitch.tv/xchocobars" target="_blank">xChocoBars</a></li>
+          <li><img src="https://placehold.co/80x80/4A4A6A/E0E0E0?text=E" alt="ellum"><a href="https://www.twitch.tv/ellum" target="_blank">ellum</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="carousel-controls teams-controls">
+      <button class="prev-team" aria-label="Previous Team">❮</button>
+      <button class="next-team" aria-label="Next Team">❯</button>
+    </div>
+  </section>
 
-<section id="schedule">
-  <h2>Schedule</h2>
-  <ul>
-    <li>
-      <h3>Week 1: <span class="local-event-datetime" data-year="2025" data-month="5" data-day="10" data-hour="13" data-minute="0" data-timezone="America/Los_Angeles"></span></h3>
-      <p>League of Legends</p>
-      <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Roomie%20Rumble%20Week%201%3A%20League%20of%20Legends&dates=20250610T130000/20250610T160000&details=Roomie%20Rumble%20-%20Week%201%3A%20League%20of%20Legends%21%20Roomies%20hit%20the%20Rift.&location=Online&ctz=America/Los_Angeles" target="_blank" rel="noopener noreferrer">Add to Google Calendar</a>
-    </li>
-    <li>
-      <h3>Week 2: <span class="local-event-datetime" data-year="2025" data-month="5" data-day="17" data-hour="13" data-minute="0" data-timezone="America/Los_Angeles"></span></h3>
-      <p>NBA 2K</p>
-      <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Roomie%20Rumble%20Week%202%3A%20NBA%202K&dates=20250617T130000/20250617T160000&details=Roomie%20Rumble%20-%20Week%202%3A%20NBA%202K.%20Roomies%20%20hit%20the%20court.&location=Online&ctz=America/Los_Angeles" target="_blank" rel="noopener noreferrer">Add to Google Calendar</a>
-    </li>
-    <li>
-      <h3>Week 3: <span class="local-event-datetime" data-year="2025" data-month="5" data-day="24" data-hour="13" data-minute="0" data-timezone="America/Los_Angeles"></span></h3>
-      <p>CS2</p>
-      <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Roomie%20Rumble%20Week%203%3A%20CS2&dates=20250624T130000/20250624T160000&details=Roomie%20Rumble%20-%20Week%203%3A%20CS2.&location=Online&ctz=America/Los_Angeles" target="_blank" rel="noopener noreferrer">Add to Google Calendar</a>
-    </li>
-    <li>
-      <h3>Week 4: <span class="local-event-datetime" data-year="2025" data-month="6" data-day="1" data-hour="13" data-minute="0" data-timezone="America/Los_Angeles"></span></h3>
-      <p>Trackmania</p>
-      <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Roomie%20Rumble%20Final%20Week%3A%20Trackmania&dates=20250701T130000/20250701T160000&details=Roomie%20Rumble%20-%20Final%20Week%3A%20Trackmania.&location=Online&ctz=America/Los_Angeles" target="_blank" rel="noopener noreferrer">Add to Google Calendar</a>
-    </li>
-  </ul>
-</section>
+  <section id="schedule" class="animate-on-scroll slide-in-up">
+    <h2>Event Schedule</h2>
+    <ul>
+      <li>
+        <h3>Week 1: <span class="local-event-datetime" data-year="2025" data-month="5" data-day="10" data-hour="13" data-minute="0" data-timezone="America/Los_Angeles"></span></h3>
+        <p>League of Legends</p>
+        <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Roomie%20Rumble%20Week%201%3A%20League%20of%20Legends&dates=20250610T130000/20250610T160000&details=Roomie%20Rumble%20-%20Week%201%3A%20League%20of%20Legends%21%20Roomies%20hit%20the%20Rift.&location=Online&ctz=America/Los_Angeles" 
+           title="Add to Google Calendar" aria-label="Add Week 1 to Google Calendar" class="gcal-link">
+          <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path fill="currentColor" d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+          </svg>
+          <span>Add Event</span>
+        </a>
+      </li>
+      <li>
+        <h3>Week 2: <span class="local-event-datetime" data-year="2025" data-month="5" data-day="17" data-hour="13" data-minute="0" data-timezone="America/Los_Angeles"></span></h3>
+        <p>NBA 2K</p>
+        <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Roomie%20Rumble%20Week%202%3A%20NBA%202K&dates=20250617T130000/20250617T160000&details=Roomie%20Rumble%20-%20Week%202%3A%20NBA%202K.%20Roomies%20%20hit%20the%20court.&location=Online&ctz=America/Los_Angeles" 
+           title="Add to Google Calendar" aria-label="Add Week 2 to Google Calendar" class="gcal-link">
+          <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path fill="currentColor" d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+          </svg>
+          <span>Add Event</span>
+        </a>
+      </li>
+      <li>
+        <h3>Week 3: <span class="local-event-datetime" data-year="2025" data-month="5" data-day="24" data-hour="13" data-minute="0" data-timezone="America/Los_Angeles"></span></h3>
+        <p>CS2</p>
+        <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Roomie%20Rumble%20Week%203%3A%20CS2&dates=20250624T130000/20250624T160000&details=Roomie%20Rumble%20-%20Week%203%3A%20CS2.&location=Online&ctz=America/Los_Angeles" 
+           title="Add to Google Calendar" aria-label="Add Week 3 to Google Calendar" class="gcal-link">
+          <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path fill="currentColor" d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+          </svg>
+          <span>Add Event</span>
+        </a>
+      </li>
+      <li>
+        <h3>Week 4: <span class="local-event-datetime" data-year="2025" data-month="6" data-day="1" data-hour="13" data-minute="0" data-timezone="America/Los_Angeles"></span></h3>
+        <p>Trackmania</p>
+        <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Roomie%20Rumble%20Final%20Week%3A%20Trackmania&dates=20250701T130000/20250701T160000&details=Roomie%20Rumble%20-%20Final%20Week%3A%20Trackmania.&location=Online&ctz=America/Los_Angeles" 
+           title="Add to Google Calendar" aria-label="Add Week 4 to Google Calendar" class="gcal-link">
+          <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path fill="currentColor" d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+          </svg>
+          <span>Add Event</span>
+        </a>
+      </li>
+    </ul>
+  </section>
 
-<section id="format">
-  <h2>Tournament Format</h2>
-  <p>Details about the tournament format will go here. Ludwig is not all there</p>
-  <ul>
-    <li>How teams earn points each week.</li>
-    <li>Rules for each game.</li>
-    <li>Overall winner determination.</li>
-  </ul>
-</section>
+  <section id="format" class="animate-on-scroll slide-in-up">
+    <h2>Tournament Format</h2>
+    Ludwig is not all there. Accurate format to come.
+    <div class="format-content-area">
+        <div class="format-card" data-index="0">
+          <h3>League of Legends</h3>
+          <p>Detailed format for League of Legends. Each match will be a Best of 3. Points awarded for series wins. Specific map pick/ban rules apply.</p>
+          <ul>
+            <li>Game Mode: 5v5 Summoner's Rift, Tournament Draft</li>
+            <li>Win Condition: Destroy enemy Nexus</li>
+            <li>Points: 3 for win, 1 for 1-2 loss, 0 for 0-2 loss</li>
+          </ul>
+        </div>
+        <div class="format-card" data-index="1">
+          <h3>NBA 2K</h3>
+          <p>NBA 2K will be played in a round-robin format. Each team plays each other once. Standard game settings, 5 minute quarters.</p>
+          <ul>
+            <li>Game Mode: MyTEAM Friendly Match</li>
+            <li>Points: 2 for win, 0 for loss</li>
+            <li>Tie Breakers: Head-to-head, then point differential</li>
+          </ul>
+        </div>
+        <div class="format-card" data-index="2">
+          <h3>CS2</h3>
+          <p>CS2 matches are Best of 1 on a pre-determined map pool. MR12 format. Teams will play in a group stage followed by playoffs.</p>
+          <ul>
+            <li>Game Mode: Competitive 5v5, MR12</li>
+            <li>Map Pool: To be announced</li>
+            <li>Points: Based on group stage ranking</li>
+          </ul>
+        </div>
+        <div class="format-card" data-index="3">
+          <h3>Trackmania</h3>
+          <p>Trackmania will feature a series of cup mode races on custom maps. Points awarded based on final ranking in each cup.</p>
+          <ul>
+            <li>Game Mode: Cup Mode (Points Limit)</li>
+            <li>Tracks: 5 custom tracks per week</li>
+            <li>Points: Top 8 players per race score points (10, 8, 6, 5, 4, 3, 2, 1)</li>
+          </ul>
+        </div>
+    </div>
+    <div class="carousel-controls format-controls">
+      <button class="prev-format" aria-label="Previous Game Format">❮</button>
+      <button class="next-format" aria-label="Next Game Format">❯</button>
+    </div>
+  </section>
 
-<section id="standings">
-  <h2>Current Team Standings</h2>
-  <p>This section will be updated weekly with the current team standings.</p>
-  <p><em>Placeholder for now:</em></p>
-  <ol>
-    <li>Team Valkyrae: X Points</li>
-    <li>Team TinaKitten: Y Points</li>
-    <li>Team Kkatamina: Z Points</li>
-    <li>Team Fuslie: W Points</li>
-  </ol>
-</section>
+  <section id="standings" class="animate-on-scroll slide-in-up">
+    <h2>Current Team Standings</h2>
+    <p>This section will be updated weekly with the current team standings.</p>
+    <p><em>Placeholder for now:</em></p>
+    <br>
+    <ol>
+      <li>Team Valkyrae: X Points</li>
+      <li>Team TinaKitten: Y Points</li>
+      <li>Team Kkatamina: Z Points</li>
+      <li>Team Fuslie: W Points</li>
+    </ol>
+  </section>
+</main>
 
-<section id="footer">
-  <p>Made by https://www.youtube.com/@theironirelia</p>
-</section>
+<footer id="page-footer" class="animate-on-scroll fade-in">
+  <p>Made by <a href="https://www.youtube.com/@theironirelia" target="_blank" rel="noopener noreferrer">IronIrelia</a></p>
+</footer>
 
 </body>
 </html>

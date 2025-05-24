@@ -1,0 +1,565 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@700&display=swap');
+
+:root {
+    --primary-color: #9333ea;
+    --primary-color-dark: #7e22ce;
+    --secondary-color: #db2777;
+    --background-color: #111827;
+    --surface-color: #1f2937;
+    --surface-color-lighter: #374151;
+    --on-primary: #ffffff;
+    --on-surface: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: #4b5563;
+    --shadow-color-dark: rgba(0, 0, 0, 0.3);
+    --shadow-color-glow: rgba(147, 51, 234, 0.2);
+    --font-family-main: 'Poppins', sans-serif;
+    --font-family-headings: 'Roboto Slab', serif;
+    --container-width: 1600px; /* User updated width */
+    --border-radius: 12px;
+    --animation-duration: 0.4s;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    background-color: var(--background-color);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family-main);
+    line-height: 1.7;
+    background-color: var(--background-color);
+    color: var(--on-surface);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+nav {
+    background-color: var(--surface-color);
+    color: var(--on-surface);
+    padding: 0.75rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    box-shadow: 0 4px 12px var(--shadow-color-dark);
+    border-bottom: 1px solid var(--border-color);
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+nav ul li {
+    margin: 0 1rem;
+}
+
+nav ul li a {
+    color: var(--on-surface);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.6rem 1rem;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+    background-color: var(--primary-color);
+    color: var(--on-primary);
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary-color-dark), var(--primary-color));
+    color: var(--on-primary);
+    text-align: center;
+    padding: 5rem 1rem 4rem;
+    width: 100%;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+header h1 {
+    font-family: var(--font-family-headings);
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 6px var(--shadow-color-dark);
+}
+
+main.container {
+    padding-top: 2.5rem;
+}
+
+section {
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px var(--shadow-color-dark), 0 0 0 1px var(--border-color);
+}
+
+section h2 {
+    font-family: var(--font-family-headings);
+    color: var(--primary-color);
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-size: 2.75rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+}
+
+section h3 {
+    font-family: var(--font-family-headings);
+    color: var(--on-surface);
+    margin-bottom: 1.25rem;
+    font-size: 1.75rem;
+}
+
+#teams .teams-content-area,
+#format .format-content-area {
+    display: grid;
+    gap: 2rem;
+    position: relative; 
+}
+#teams .teams-content-area {
+    grid-template-columns: repeat(4, 1fr); /* UPDATED for 4 teams in a row */
+}
+#format .format-content-area {
+     grid-template-columns: repeat(4, 1fr); /* UPDATED for 4 format items in a row */
+}
+
+
+.team-card, .format-card {
+    background-color: var(--surface-color-lighter);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 6px 18px var(--shadow-color-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, opacity var(--animation-duration) ease-in-out;
+}
+
+.team-card:hover, .format-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 35px var(--shadow-color-dark), 0 0 30px var(--shadow-color-glow);
+}
+
+.team-captain {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-captain img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 4px 15px var(--shadow-color-dark);
+    transition: transform 0.3s ease;
+}
+.team-captain img:hover {
+    transform: scale(1.08) rotate(3deg);
+}
+
+.team-captain h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1.7rem;
+    color: var(--primary-color);
+}
+
+.team-players {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+.team-players li {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1rem;
+    color: var(--on-surface);
+    transition: background-color 0.2s ease;
+}
+.team-players li:last-child {
+    border-bottom: none;
+}
+.team-players li:hover {
+    background-color: rgba(255,255,255,0.03);
+}
+
+.team-players img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+    border: 2px solid var(--border-color);
+}
+
+.team-players a {
+    color: var(--on-surface);
+    text-decoration: none;
+    font-weight: 500;
+}
+.team-players a:hover {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+
+.carousel-controls {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.5rem;
+}
+
+.carousel-controls button {
+    background-color: var(--primary-color);
+    color: var(--on-primary);
+    border: none;
+    font-size: 1.6rem;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 0.75rem;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 10px var(--shadow-color-dark);
+}
+
+.carousel-controls button:hover {
+    background-color: var(--primary-color-dark);
+    transform: scale(1.12);
+    box-shadow: 0 8px 15px var(--shadow-color-dark);
+}
+.carousel-controls button:disabled {
+    background-color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: scale(1);
+    box-shadow: none;
+}
+
+#schedule ul {
+    list-style: none;
+    padding-left: 0;
+    display: grid; /* UPDATED for horizontal layout on desktop */
+    grid-template-columns: repeat(4, 1fr); /* UPDATED for 4 items in a row */
+    gap: 1.5rem; /* UPDATED gap for horizontal items */
+}
+
+#format ul { /* This is for inner lists within format cards, not the cards themselves */
+    text-align: left;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+    margin-top: 1rem;
+}
+#format .format-content-area li { /* This styles list items within format cards if any */
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0.25rem 0;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+}
+
+#schedule li, 
+#standings li { /* #standings li remains vertical */
+    margin-bottom: 1.75rem; /* Keep for standings, remove for schedule if using grid gap */
+    padding: 1.75rem;
+    background-color: var(--surface-color-lighter);
+    border-radius: var(--border-radius);
+    border-left: 6px solid var(--secondary-color);
+    box-shadow: 0 6px 15px var(--shadow-color-dark);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex; /* Added for schedule items to align content nicely */
+    flex-direction: column; /* Added for schedule items */
+}
+#schedule li {
+    margin-bottom: 0; /* Grid gap will handle spacing for schedule items */
+}
+
+#schedule li:hover, 
+#standings li:hover {
+    box-shadow: 0 8px 25px var(--shadow-color-dark);
+    border-left-color: var(--primary-color);
+}
+
+#schedule li p {
+    margin: 0.5rem 0 1rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    flex-grow: 1; /* Allow p to grow if schedule item heights are stretched */
+}
+
+h3 .local-event-datetime {
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: -0.75rem;
+    margin-bottom: 1rem;
+}
+.format-card h3 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+.format-card p {
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    text-align: left;
+    flex-grow: 1;
+}
+.format-card ul { /* Styling for the bullet list inside format cards */
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+
+.gcal-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: auto; /* Push to bottom of schedule card if card is flex column */
+    padding: 0.7rem 1.4rem;
+    background-color: var(--primary-color);
+    color: var(--on-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    box-shadow: 0 3px 6px var(--shadow-color-dark);
+}
+.gcal-link svg {
+    vertical-align: middle;
+}
+.gcal-link:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px var(--shadow-color-dark);
+}
+
+#page-footer {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    margin-top: 2rem;
+    background-color: #0f172a;
+    color: var(--text-muted);
+    width: 100%;
+    font-size: 0.9rem;
+}
+#page-footer a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+#page-footer a:hover {
+    text-decoration: underline;
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.fade-in {
+    opacity: 0;
+}
+.fade-in-down {
+    transform: translateY(-40px);
+    opacity: 0;
+}
+.slide-in-up {
+    transform: translateY(60px);
+    opacity: 0;
+}
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+@keyframes contentFadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes contentFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-15px); }
+}
+.card-content-fade-in {
+    animation: contentFadeIn var(--animation-duration) ease-out forwards;
+}
+.card-content-fade-out {
+    animation: contentFadeOut var(--animation-duration) ease-in forwards;
+}
+
+
+@media (max-width: 1024px) {
+    :root {
+        /* Container width will be 95% as per this rule, max 1600px still applies from :root */
+    }
+    header h1 {
+        font-size: 3rem;
+    }
+    section h2 {
+        font-size: 2.25rem;
+    }
+    /* Forcing 2 columns if viewport is not wide enough for 4, before hitting mobile view */
+    #teams .teams-content-area, 
+    #format .format-content-area {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Revert to auto-fit for mid-sizes */
+    }
+    #schedule ul {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Schedule items wrap on mid-sizes */
+    }
+    #schedule li {
+        margin-bottom: 1.5rem; /* Add margin back if they stack/wrap */
+    }
+}
+
+
+@media (max-width: 768px) {
+    html {
+        font-size: 15px;
+    }
+    header h1 {
+        font-size: 2.5rem;
+    }
+    header {
+        padding: 3.5rem 1rem 3rem;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    }
+    section h2 {
+        font-size: 2rem;
+    }
+    section h3 {
+        font-size: 1.5rem;
+    }
+
+    nav ul {
+        justify-content: center;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 0 0.5rem;
+    }
+    nav ul li {
+        margin: 0.25rem 0.3rem;
+        flex-shrink: 0;
+    }
+    nav ul li a {
+        padding: 0.5rem 0.6rem;
+        font-size: 1.1rem;
+    }
+
+    #teams .teams-content-area,
+    #format .format-content-area {
+        display: block; 
+        position: relative; 
+        min-height: 400px; /* Adjust if needed */
+        grid-template-columns: none; /* Override desktop grid */
+    }
+    #schedule ul {
+        display: block; /* Schedule items stack vertically on mobile */
+        grid-template-columns: none; /* Override desktop grid */
+    }
+    #schedule li {
+        margin-bottom: 1.5rem; /* Ensure vertical spacing */
+    }
+    
+    .team-card, .format-card {
+        width: 100%; 
+        margin: 0 0 2rem 0; 
+        display: none; 
+        opacity: 0; 
+        border-radius: var(--border-radius); 
+    }
+    .team-card.active-card, 
+    .format-card.active-card {
+        display: flex; 
+    }
+    
+    .carousel-controls {
+        display: flex;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+    header h1 {
+        font-size: 2rem;
+    }
+    section h2 {
+        font-size: 1.75rem;
+    }
+    section h3 {
+        font-size: 1.3rem;
+    }
+    .team-captain img {
+        width: 100px;
+        height: 100px;
+    }
+    .team-players img {
+        width: 40px;
+        height: 40px;
+    }
+    .gcal-link {
+        padding: 0.6rem 1.1rem;
+        font-size: 0.9rem;
+    }
+    .gcal-link svg {
+        height: 16px;
+        width: 16px;
+    }
+    .gcal-link span {
+        display: inline;
+    }
+}
