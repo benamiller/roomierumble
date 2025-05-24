@@ -15,7 +15,7 @@
     --shadow-color-glow: rgba(147, 51, 234, 0.2);
     --font-family-main: 'Poppins', sans-serif;
     --font-family-headings: 'Roboto Slab', serif;
-    --container-width: 1600px; /* User updated width */
+    --container-width: 1600px;
     --border-radius: 12px;
     --animation-duration: 0.4s;
 }
@@ -154,10 +154,10 @@ section h3 {
     position: relative; 
 }
 #teams .teams-content-area {
-    grid-template-columns: repeat(4, 1fr); /* UPDATED for 4 teams in a row */
+    grid-template-columns: repeat(4, 1fr);
 }
 #format .format-content-area {
-     grid-template-columns: repeat(4, 1fr); /* UPDATED for 4 format items in a row */
+     grid-template-columns: repeat(4, 1fr);
 }
 
 
@@ -187,8 +187,8 @@ section h3 {
 }
 
 .team-captain img {
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 1rem;
@@ -220,6 +220,7 @@ section h3 {
     font-size: 1rem;
     color: var(--on-surface);
     transition: background-color 0.2s ease;
+    border-radius: var(--border-radius);
 }
 .team-players li:last-child {
     border-bottom: none;
@@ -229,12 +230,12 @@ section h3 {
 }
 
 .team-players img {
-    width: 50px;
-    height: 50px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 1rem;
-    border: 2px solid var(--border-color);
+    border: 3px solid var(--primary-color-dark);
 }
 
 .team-players a {
@@ -288,18 +289,18 @@ section h3 {
 #schedule ul {
     list-style: none;
     padding-left: 0;
-    display: grid; /* UPDATED for horizontal layout on desktop */
-    grid-template-columns: repeat(4, 1fr); /* UPDATED for 4 items in a row */
-    gap: 1.5rem; /* UPDATED gap for horizontal items */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
 }
 
-#format ul { /* This is for inner lists within format cards, not the cards themselves */
+#format ul {
     text-align: left;
     padding-left: 1.5rem;
     list-style-type: disc;
     margin-top: 1rem;
 }
-#format .format-content-area li { /* This styles list items within format cards if any */
+#format .format-content-area li {
     background: none;
     border: none;
     box-shadow: none;
@@ -309,19 +310,19 @@ section h3 {
 }
 
 #schedule li, 
-#standings li { /* #standings li remains vertical */
-    margin-bottom: 1.75rem; /* Keep for standings, remove for schedule if using grid gap */
+#standings li {
+    margin-bottom: 1.75rem;
     padding: 1.75rem;
     background-color: var(--surface-color-lighter);
     border-radius: var(--border-radius);
     border-left: 6px solid var(--secondary-color);
     box-shadow: 0 6px 15px var(--shadow-color-dark);
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    display: flex; /* Added for schedule items to align content nicely */
-    flex-direction: column; /* Added for schedule items */
+    display: flex;
+    flex-direction: column;
 }
 #schedule li {
-    margin-bottom: 0; /* Grid gap will handle spacing for schedule items */
+    margin-bottom: 0;
 }
 
 #schedule li:hover, 
@@ -334,7 +335,7 @@ section h3 {
     margin: 0.5rem 0 1rem;
     color: var(--text-muted);
     font-size: 1.05rem;
-    flex-grow: 1; /* Allow p to grow if schedule item heights are stretched */
+    flex-grow: 1;
 }
 
 h3 .local-event-datetime {
@@ -356,7 +357,7 @@ h3 .local-event-datetime {
     text-align: left;
     flex-grow: 1;
 }
-.format-card ul { /* Styling for the bullet list inside format cards */
+.format-card ul {
     color: var(--text-muted);
     font-size: 0.9rem;
     margin-bottom: 0;
@@ -367,7 +368,7 @@ h3 .local-event-datetime {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    margin-top: auto; /* Push to bottom of schedule card if card is flex column */
+    margin-top: auto;
     padding: 0.7rem 1.4rem;
     background-color: var(--primary-color);
     color: var(--on-primary);
@@ -451,16 +452,15 @@ h3 .local-event-datetime {
     section h2 {
         font-size: 2.25rem;
     }
-    /* Forcing 2 columns if viewport is not wide enough for 4, before hitting mobile view */
     #teams .teams-content-area, 
     #format .format-content-area {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Revert to auto-fit for mid-sizes */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
     #schedule ul {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Schedule items wrap on mid-sizes */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
     #schedule li {
-        margin-bottom: 1.5rem; /* Add margin back if they stack/wrap */
+        margin-bottom: 1.5rem;
     }
 }
 
@@ -502,15 +502,15 @@ h3 .local-event-datetime {
     #format .format-content-area {
         display: block; 
         position: relative; 
-        min-height: 400px; /* Adjust if needed */
-        grid-template-columns: none; /* Override desktop grid */
+        min-height: 400px;
+        grid-template-columns: none;
     }
     #schedule ul {
-        display: block; /* Schedule items stack vertically on mobile */
-        grid-template-columns: none; /* Override desktop grid */
+        display: block;
+        grid-template-columns: none;
     }
     #schedule li {
-        margin-bottom: 1.5rem; /* Ensure vertical spacing */
+        margin-bottom: 1.5rem;
     }
     
     .team-card, .format-card {
@@ -544,12 +544,12 @@ h3 .local-event-datetime {
         font-size: 1.3rem;
     }
     .team-captain img {
-        width: 100px;
-        height: 100px;
+        width: 130px;
+        height: 130px;
     }
     .team-players img {
-        width: 40px;
-        height: 40px;
+        width: 70px;
+        height: 70px;
     }
     .gcal-link {
         padding: 0.6rem 1.1rem;
