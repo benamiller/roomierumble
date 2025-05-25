@@ -157,14 +157,8 @@ section h3 {
     display: grid;
     gap: 2rem;
     position: relative; 
-}
-#teams .teams-content-area {
     grid-template-columns: repeat(4, 1fr);
 }
-#format .format-content-area {
-     grid-template-columns: repeat(4, 1fr);
-}
-
 
 .team-card, .format-card {
     background-color: var(--surface-color-lighter);
@@ -446,6 +440,13 @@ h3 .local-event-datetime {
     animation: contentFadeOut var(--animation-duration) ease-in forwards;
 }
 
+@media (max-width: 1590px) {
+    #teams .teams-content-area,
+    #format .format-content-area {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 
 @media (max-width: 1024px) {
     :root {
@@ -470,7 +471,15 @@ h3 .local-event-datetime {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
+    #teams .teams-content-area,
+    #format .format-content-area {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 850px) {
     html {
         font-size: 15px;
     }
