@@ -683,6 +683,12 @@ h3 .local-event-datetime {
 /*     visibility: visible; */
 /*     transition: opacity 0.3s ease, visibility 0s linear 0s; */
 /* } */
+.captain-bio-popover.is-visible {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
 
 .captain-bio-popover h4 {
     font-family: var(--font-family-headings);
