@@ -159,12 +159,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const lolPollForm = document.getElementById('lolPollForm');
     const lolPollMessageDiv = document.getElementById('lolPollMessage');
+    const lolPollVoteButton = lolPollForm ? lolPollForm.querySelector('button[type="submit"]') : null;
+    const lolPollRadioButtons = lolPollForm ? lolPollForm.querySelectorAll('input[type="radio"]') : null;
+    const VOTE_STORAGE_KEY = 'roomieRumble_currentPollVoted';
+
     const lolPollResultsSpans = {
         team_valkyrae: document.getElementById('results-team_valkyrae'),
         team_tinakitten: document.getElementById('results-team_tinakitten'),
         team_kkatamina: document.getElementById('results-team_kkatamina'),
         team_fuslie: document.getElementById('results-team_fuslie')
     };
+
+    function disableLolPollForm() {
+        if (lolPollForm) {
+            lolPollForm.style.display = 'none';
+        }
+        if (lolPollMessageDiv) {
+            lolPollMessageDiv.textContent = 'Thank you for voting! Your vote has been recorded.';
+            lolPollMessageDiv.style.display = 'block';
+        }
+    }
+
+    function checkIfVoted() {
+        if (localStorage.getItem(VOTE_STORAGE_KEY) === 'true') {
+            disableLolPollForm();
+            return true;
+        }
+        return false;
+    }
 
     function updateLolPollDisplay(results) {
         if (!results) return;
@@ -217,52 +239,72 @@ document.addEventListener('DOMContentLoaded', function() {
             updateLolPollDisplay(results);
         } catch (error) {
             console.error('Error fetching LoL poll results:', error);
-            if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Error fetching poll results.';
+            if (lolPollMessageDiv && !localStorage.getItem(VOTE_STORAGE_KEY)) {
+                 lolPollMessageDiv.textContent = 'Error fetching poll results.';
+            }
         }
     }
 
     if (lolPollForm) {
-        lolPollForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
+        if (checkIfVoted()) {
+            fetchLolPollResults();
+        } else {
+            lolPollForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
 
-            const formData = new FormData(lolPollForm);
-            const selectedOption = formData.get('lol_vote');
+                if (lolPollVoteButton) lolPollVoteButton.disabled = true;
+                if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = true);
 
-            if (!selectedOption) {
-                if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Please select a team to vote for.';
-                return;
-            }
 
-            if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Submitting your vote...';
+                const formData = new FormData(lolPollForm);
+                const selectedOption = formData.get('lol_vote');
 
-            const workerUrl = 'https://poll.roomierumble.com';
-
-            try {
-                const response = await fetch(workerUrl, {
-                    method: 'POST',
-                    body: formData,
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    if (lolPollMessageDiv) lolPollMessageDiv.textContent = data.message || 'Vote processed!';
-                    if (data.results) {
-                        updateLolPollDisplay(data.results);
-                    }
-                } else {
-                    if (lolPollMessageDiv) lolPollMessageDiv.textContent = `Error: ${data.message || 'Could not submit vote.'}`;
+                if (!selectedOption) {
+                    if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Please select a team to vote for.';
+                    if (lolPollVoteButton) lolPollVoteButton.disabled = false;
+                    if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = false);
+                    return;
                 }
-            } catch (error) {
-                console.error('Error submitting LoL poll vote:', error);
-                if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'An error occurred. Please try again.';
-            }
-        });
+
+                if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Submitting your vote...';
+
+                const workerUrl = 'https://poll.roomierumble.com';
+
+                try {
+                    const response = await fetch(workerUrl, {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        localStorage.setItem(VOTE_STORAGE_KEY, 'true');
+                        disableLolPollForm();
+                        if (data.results) {
+                            updateLolPollDisplay(data.results);
+                        }
+                    } else {
+                        if (lolPollMessageDiv) lolPollMessageDiv.textContent = `Error: ${data.message || 'Could not submit vote.'}`;
+                        if (lolPollVoteButton) lolPollVoteButton.disabled = false;
+                        if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = false);
+                    }
+                } catch (error) {
+                    console.error('Error submitting LoL poll vote:', error);
+                    if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'An error occurred. Please try again.';
+                    if (lolPollVoteButton) lolPollVoteButton.disabled = false;
+                    if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = false);
+                }
+            });
+        }
     }
 
     if (document.getElementById('lol-poll')) {
-        fetchLolPollResults();
+        if (!localStorage.getItem(VOTE_STORAGE_KEY)) {
+             fetchLolPollResults();
+        }
     }
+
 
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     const observerOptions = {
