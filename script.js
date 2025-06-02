@@ -169,24 +169,23 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateLolPollDisplay(results) {
 	if (!results) return;
 
-	let totalVotes = 0;
-	for (const teamKey in results) {
-	    totalVotes += (results[teamKey] || 0);
-	}
-
 	let maxVotes = 0;
-	if (totalVotes > 0) {
-	    for (const teamKey in results) {
-		if (results[teamKey] > maxVotes) {
-		    maxVotes = results[teamKey];
-		}
+	for (const teamKey in results) {
+	    const currentTeamVotes = results[teamKey] || 0;
+	    if (currentTeamVotes > maxVotes) {
+		maxVotes = currentTeamVotes;
 	    }
 	}
 
-
 	for (const teamKey in results) {
 	    const voteCount = results[teamKey] || 0;
-	    const percentage = (totalVotes > 0) ? (voteCount / totalVotes) * 100 : 0;
+	    let percentage;
+
+	    if (maxVotes === 0) {
+		percentage = 0;
+	    } else {
+		percentage = (voteCount / maxVotes) * 100;
+	    }
 
 	    const voteCountSpan = document.getElementById(`results-${teamKey}`);
 	    if (voteCountSpan) {
@@ -196,9 +195,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	    const barElement = document.getElementById(`bar-${teamKey}`);
 	    if (barElement) {
 		barElement.style.width = `${percentage}%`;
-		barElement.textContent = `${Math.round(percentage)}%`;
 
-		if (voteCount === maxVotes && totalVotes > 0) {
+		if (percentage === 100 && maxVotes > 0) {
 		    barElement.classList.add('leading');
 		} else {
 		    barElement.classList.remove('leading');
