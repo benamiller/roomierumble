@@ -1122,9 +1122,11 @@ h3 .local-event-datetime {
 }
 
 @media (min-width: 768px) {
-    .past-polls-container,
-    .weekly-standings-container {
+    .past-polls-container {
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+    .weekly-standings-container {
+	grid-template-columns: repeat(2, 1fr);
     }
     .past-poll-card h3,
     .weekly-standing-card h3 {
