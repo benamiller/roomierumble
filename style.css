@@ -183,6 +183,7 @@ section h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .team-captain img {
@@ -246,7 +247,6 @@ section h3 {
     color: var(--secondary-color);
     text-decoration: none;
 }
-
 
 .carousel-controls {
     display: none;
@@ -361,7 +361,6 @@ h3 .local-event-datetime {
     font-size: 0.9rem;
     margin-bottom: 0;
 }
-
 
 .gcal-link {
     display: inline-flex;
@@ -644,6 +643,60 @@ h3 .local-event-datetime {
     margin-left: -5px;
 }
 
+.captain-bio-popover {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    max-width: 90vw;
+    background-color: var(--surface-color);
+    color: var(--on-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    box-shadow: 0 8px 20px var(--shadow-color-dark);
+    z-index: 20;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: left;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.captain-bio-popover::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: var(--surface-color) transparent transparent transparent;
+}
+
+.team-captain:hover .captain-bio-popover {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
+
+.captain-bio-popover h4 {
+    font-family: var(--font-family-headings);
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.captain-bio-popover p {
+    margin-bottom: 0;
+    color: var(--text-muted);
+}
+
+
 @media (max-width: 1590px) {
     #teams .teams-content-area,
     #format .format-content-area {
@@ -814,5 +867,9 @@ h3 .local-event-datetime {
     }
     .poll-votes-text {
         display: none;
+    }
+    .captain-bio-popover {
+        width: 240px;
+        bottom: calc(100% + 5px);
     }
 }
