@@ -681,12 +681,6 @@ h3 .local-event-datetime {
     border-color: var(--surface-color) transparent transparent transparent;
 }
 
-/* .team-captain:hover .captain-bio-popover { */
-/*     display: block; */
-/*     opacity: 1; */
-/*     visibility: visible; */
-/*     transition: opacity 0.3s ease, visibility 0s linear 0s; */
-/* } */
 .captain-bio-popover.is-visible {
     display: block;
     opacity: 1;
@@ -704,6 +698,165 @@ h3 .local-event-datetime {
 .captain-bio-popover p {
     margin-bottom: 0;
     color: var(--text-muted);
+}
+
+.current-poll-notice {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--on-surface);
+    background-color: var(--surface-color);
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    border: 1px solid var(--primary-color-dark);
+}
+
+.current-poll-notice strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.past-polls-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.past-poll-card {
+    background-color: var(--surface-color-lighter);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 6px 18px var(--shadow-color-dark);
+}
+
+.past-poll-card h3 {
+    font-family: var(--font-family-headings);
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-size: 1.6rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.poll-card-status {
+    font-size: 0.85rem;
+    font-family: var(--font-family-main);
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    display: inline-block;
+}
+
+.past-poll-card.poll-completed .poll-card-status {
+    color: var(--primary-color);
+}
+
+.past-poll-card.poll-upcoming {
+    background-color: var(--surface-color);
+    border-color: #2a3547;
+    opacity: 0.75;
+}
+
+.past-poll-card.poll-upcoming h3 {
+    color: var(--text-muted);
+    border-bottom-color: #2a3547;
+}
+.past-poll-card.poll-upcoming .poll-card-status {
+    color: #6b7280;
+}
+
+.past-poll-card.poll-upcoming .past-poll-description {
+    color: #6b7280;
+}
+
+.past-poll-description {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.poll-status-message {
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-muted);
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+}
+
+.past-poll-result-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.past-poll-result-line:last-of-type {
+    margin-bottom: 1.5rem;
+}
+
+.past-poll-team-name {
+    font-size: 0.95rem;
+    color: var(--on-surface);
+    flex-basis: 150px;
+    flex-shrink: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.past-poll-bar-container {
+    flex-grow: 1;
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    height: 22px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.past-poll-bar {
+    background-color: var(--primary-color);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: var(--on-primary);
+    font-size: 0.8rem;
+    padding-right: 5px;
+    box-sizing: border-box;
+}
+
+.past-poll-vote-details {
+    font-weight: 600;
+    color: var(--on-surface);
+    font-size: 0.95rem;
+    min-width: 60px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.past-poll-total-votes {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--border-color);
 }
 
 
@@ -808,6 +961,19 @@ h3 .local-event-datetime {
     }
 }
 
+@media (min-width: 768px) {
+    .past-polls-container {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+     .past-poll-card h3 {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    .poll-card-status {
+        margin-top: 0;
+    }
+}
+
 @media (max-width: 600px) {
     .poll-option {
         padding: 0.8rem 1rem;
@@ -881,5 +1047,22 @@ h3 .local-event-datetime {
     .captain-bio-popover {
         width: 240px;
         bottom: calc(100% + 5px);
+    }
+    .past-poll-card {
+        padding: 1rem 1.5rem;
+    }
+    .past-poll-card h3 {
+        font-size: 1.4rem;
+    }
+    .past-poll-team-name {
+        flex-basis: 100px;
+        font-size: 0.85rem;
+    }
+    .past-poll-bar-container {
+        height: 20px;
+    }
+    .past-poll-vote-details {
+        font-size: 0.85rem;
+        min-width: 50px;
     }
 }
