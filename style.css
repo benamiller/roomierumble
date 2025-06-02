@@ -152,6 +152,18 @@ section h3 {
     font-size: 1.75rem;
 }
 
+.section-description {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: -1.5rem;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 #teams .teams-content-area,
 #format .format-content-area {
     display: grid;
@@ -859,6 +871,154 @@ h3 .local-event-datetime {
     border-top: 1px dashed var(--border-color);
 }
 
+.weekly-standings-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.weekly-standing-card {
+    background-color: var(--surface-color-lighter);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 6px 18px var(--shadow-color-dark);
+}
+
+.weekly-standing-card h3 {
+    font-family: var(--font-family-headings);
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-size: 1.6rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.week-status-tag {
+    font-size: 0.8rem;
+    font-family: var(--font-family-main);
+    font-weight: 600;
+    padding: 0.2em 0.6em;
+    border-radius: calc(var(--border-radius) / 2);
+    margin-top: 0.35rem;
+    display: inline-block;
+    line-height: 1.2;
+}
+
+.concluded-tag {
+    background-color: var(--primary-color);
+    color: var(--on-primary);
+}
+
+.upcoming-tag {
+    background-color: var(--surface-color);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+}
+
+.weekly-standing-card.week-upcoming {
+    background-color: var(--surface-color);
+    border-color: #2a3547;
+    opacity: 0.7;
+}
+
+.weekly-standing-card.week-upcoming h3 {
+    color: var(--text-muted);
+    border-bottom-color: #2a3547;
+}
+
+.weekly-standing-card.week-upcoming .section-description,
+.weekly-standing-card.week-upcoming .performance-note {
+    color: #6b7280;
+}
+
+.standings-status-message {
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-muted);
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    margin-top: 1.5rem;
+}
+
+.team-rankings-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 1.5rem;
+}
+
+.team-rankings-list li {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    gap: 10px;
+}
+
+.team-rankings-list li:last-child {
+    border-bottom: none;
+}
+
+.team-rankings-list .rank {
+    font-family: var(--font-family-headings);
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    font-weight: 700;
+    flex-basis: 35px;
+    flex-shrink: 0;
+    text-align: right;
+    margin-right: 5px;
+}
+
+.team-standings-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color-dark);
+    flex-shrink: 0;
+}
+
+.team-name-standings {
+    font-weight: 500;
+    color: var(--on-surface);
+    flex-grow: 1;
+}
+
+.points-earned {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    margin-left: auto;
+    padding-left: 10px;
+    flex-shrink: 0;
+    text-align: right;
+    min-width: 70px;
+}
+
+.performance-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+    flex-basis: 120px;
+    flex-shrink: 0;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 
 @media (max-width: 1590px) {
     #teams .teams-content-area,
@@ -962,14 +1122,17 @@ h3 .local-event-datetime {
 }
 
 @media (min-width: 768px) {
-    .past-polls-container {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    .past-polls-container,
+    .weekly-standings-container {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     }
-     .past-poll-card h3 {
+    .past-poll-card h3,
+    .weekly-standing-card h3 {
         flex-direction: row;
         gap: 0.5rem;
     }
-    .poll-card-status {
+    .poll-card-status,
+    .week-status-tag {
         margin-top: 0;
     }
 }
@@ -993,6 +1156,37 @@ h3 .local-event-datetime {
 
     #lolPollResults {
         padding: 1rem;
+    }
+
+    .team-rankings-list li {
+        flex-wrap: wrap;
+        padding: 0.5rem;
+    }
+    .team-rankings-list .rank {
+        flex-basis: 25px;
+        margin-right: 0;
+        font-size: 1rem;
+    }
+    .team-standings-icon {
+        width: 30px;
+        height: 30px;
+    }
+    .team-name-standings {
+        flex-basis: calc(100% - 75px);
+        font-size: 0.9rem;
+    }
+    .points-earned {
+        font-size: 0.85rem;
+        min-width: 60px;
+        flex-basis: 60px;
+        margin-left: 0;
+    }
+    .performance-note {
+        flex-basis: 100%;
+        text-align: left;
+        margin-left: 35px;
+        font-size: 0.75rem;
+        white-space: normal;
     }
 }
 
@@ -1064,5 +1258,17 @@ h3 .local-event-datetime {
     .past-poll-vote-details {
         font-size: 0.85rem;
         min-width: 50px;
+    }
+    .weekly-standing-card {
+        padding: 1rem 1.25rem;
+    }
+    .weekly-standing-card h3 {
+        font-size: 1.4rem;
+    }
+    .team-rankings-list li {
+        gap: 5px;
+    }
+    .performance-note {
+        margin-left: 30px;
     }
 }
