@@ -598,7 +598,7 @@ h3 .local-event-datetime {
 .poll-team-name {
     font-size: 0.95rem;
     color: var(--on-surface);
-    flex-basis: 120px;
+    flex-basis: 170px;
     flex-shrink: 0;
     overflow: hidden;
     text-overflow: ellipsis;
