@@ -167,42 +167,42 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     function updateLolPollDisplay(results) {
-	if (!results) return;
+        if (!results) return;
 
-	let maxVotes = 0;
-	for (const teamKey in results) {
-	    const currentTeamVotes = results[teamKey] || 0;
-	    if (currentTeamVotes > maxVotes) {
-		maxVotes = currentTeamVotes;
-	    }
-	}
+        let maxVotes = 0;
+        for (const teamKey in results) {
+            const currentTeamVotes = results[teamKey] || 0;
+            if (currentTeamVotes > maxVotes) {
+                maxVotes = currentTeamVotes;
+            }
+        }
 
-	for (const teamKey in results) {
-	    const voteCount = results[teamKey] || 0;
-	    let percentage;
+        for (const teamKey in results) {
+            const voteCount = results[teamKey] || 0;
+            let percentage;
 
-	    if (maxVotes === 0) {
-		percentage = 0;
-	    } else {
-		percentage = (voteCount / maxVotes) * 100;
-	    }
+            if (maxVotes === 0) {
+                percentage = 0;
+            } else {
+                percentage = (voteCount / maxVotes) * 100;
+            }
 
-	    const voteCountSpan = document.getElementById(`results-${teamKey}`);
-	    if (voteCountSpan) {
-		voteCountSpan.textContent = voteCount;
-	    }
+            const voteCountSpan = document.getElementById(`results-${teamKey}`);
+            if (voteCountSpan) {
+                voteCountSpan.textContent = voteCount;
+            }
 
-	    const barElement = document.getElementById(`bar-${teamKey}`);
-	    if (barElement) {
-		barElement.style.width = `${percentage}%`;
+            const barElement = document.getElementById(`bar-${teamKey}`);
+            if (barElement) {
+                barElement.style.width = `${percentage}%`;
 
-		if (percentage === 100 && maxVotes > 0) {
-		    barElement.classList.add('leading');
-		} else {
-		    barElement.classList.remove('leading');
-		}
-	    }
-	}
+                if (percentage === 100 && maxVotes > 0) {
+                    barElement.classList.add('leading');
+                } else {
+                    barElement.classList.remove('leading');
+                }
+            }
+        }
     }
 
     async function fetchLolPollResults() {
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (document.getElementById('lol-poll')) {
-         fetchLolPollResults();
+        fetchLolPollResults();
     }
 
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
@@ -282,6 +282,39 @@ document.addEventListener('DOMContentLoaded', function() {
     animatedElements.forEach(el => {
         if (el) {
             observer.observe(el);
+        }
+    });
+
+    const teamCaptains = document.querySelectorAll('.team-captain');
+
+    teamCaptains.forEach(captain => {
+        captain.addEventListener('click', function(event) {
+            const currentPopover = captain.querySelector('.captain-bio-popover');
+            if (!currentPopover) return;
+
+            const isAlreadyVisible = currentPopover.classList.contains('is-visible');
+
+            document.querySelectorAll('.captain-bio-popover.is-visible').forEach(visiblePopover => {
+                if (visiblePopover !== currentPopover) {
+                    visiblePopover.classList.remove('is-visible');
+                }
+            });
+
+            if (isAlreadyVisible) {
+                currentPopover.classList.remove('is-visible');
+            } else {
+                currentPopover.classList.add('is-visible');
+            }
+        });
+    });
+
+    document.addEventListener('click', function(event) {
+        const openPopover = document.querySelector('.captain-bio-popover.is-visible');
+        if (openPopover) {
+            const isClickInsideCaptainArea = event.target.closest('.team-captain');
+            if (!isClickInsideCaptainArea) {
+                openPopover.classList.remove('is-visible');
+            }
         }
     });
 });
