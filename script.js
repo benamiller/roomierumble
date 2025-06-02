@@ -239,72 +239,67 @@ document.addEventListener('DOMContentLoaded', function() {
             updateLolPollDisplay(results);
         } catch (error) {
             console.error('Error fetching LoL poll results:', error);
-            if (lolPollMessageDiv && !localStorage.getItem(VOTE_STORAGE_KEY)) {
+            if (lolPollMessageDiv && lolPollForm && lolPollForm.style.display !== 'none') {
                  lolPollMessageDiv.textContent = 'Error fetching poll results.';
             }
         }
     }
 
-    if (lolPollForm) {
-        if (checkIfVoted()) {
-            fetchLolPollResults();
-        } else {
-            lolPollForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
+    if (document.getElementById('lol-poll')) {
+        fetchLolPollResults();
 
-                if (lolPollVoteButton) lolPollVoteButton.disabled = true;
-                if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = true);
+        if (lolPollForm) {
+            if (checkIfVoted()) {
+            } else {
+                lolPollForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
 
+                    const formData = new FormData(lolPollForm);
+                    const selectedOption = formData.get('lol_vote');
 
-                const formData = new FormData(lolPollForm);
-                const selectedOption = formData.get('lol_vote');
+                    if (lolPollVoteButton) lolPollVoteButton.disabled = true;
+                    if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = true);
 
-                if (!selectedOption) {
-                    if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Please select a team to vote for.';
-                    if (lolPollVoteButton) lolPollVoteButton.disabled = false;
-                    if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = false);
-                    return;
-                }
+                    if (!selectedOption) {
+                        if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Please select a team to vote for.';
+                        if (lolPollVoteButton) lolPollVoteButton.disabled = false;
+                        if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = false);
+                        return;
+                    }
 
-                if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Submitting your vote...';
+                    if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Submitting your vote...';
 
-                const workerUrl = 'https://poll.roomierumble.com';
+                    const workerUrl = 'https://poll.roomierumble.com';
 
-                try {
-                    const response = await fetch(workerUrl, {
-                        method: 'POST',
-                        body: formData,
-                    });
+                    try {
+                        const response = await fetch(workerUrl, {
+                            method: 'POST',
+                            body: formData,
+                        });
 
-                    const data = await response.json();
+                        const data = await response.json();
 
-                    if (response.ok) {
-                        localStorage.setItem(VOTE_STORAGE_KEY, 'true');
-                        disableLolPollForm();
-                        if (data.results) {
-                            updateLolPollDisplay(data.results);
+                        if (response.ok) {
+                            localStorage.setItem(VOTE_STORAGE_KEY, 'true');
+                            disableLolPollForm();
+                            if (data.results) {
+                                updateLolPollDisplay(data.results);
+                            }
+                        } else {
+                            if (lolPollMessageDiv) lolPollMessageDiv.textContent = `Error: ${data.message || 'Could not submit vote.'}`;
+                            if (lolPollVoteButton) lolPollVoteButton.disabled = false;
+                            if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = false);
                         }
-                    } else {
-                        if (lolPollMessageDiv) lolPollMessageDiv.textContent = `Error: ${data.message || 'Could not submit vote.'}`;
+                    } catch (error) {
+                        console.error('Error submitting LoL poll vote:', error);
+                        if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'An error occurred. Please try again.';
                         if (lolPollVoteButton) lolPollVoteButton.disabled = false;
                         if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = false);
                     }
-                } catch (error) {
-                    console.error('Error submitting LoL poll vote:', error);
-                    if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'An error occurred. Please try again.';
-                    if (lolPollVoteButton) lolPollVoteButton.disabled = false;
-                    if (lolPollRadioButtons) lolPollRadioButtons.forEach(radio => radio.disabled = false);
-                }
-            });
+                });
+            }
         }
     }
-
-    if (document.getElementById('lol-poll')) {
-        if (!localStorage.getItem(VOTE_STORAGE_KEY)) {
-             fetchLolPollResults();
-        }
-    }
-
 
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     const observerOptions = {
