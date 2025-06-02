@@ -90,6 +90,39 @@
     </div>
   </section>
 
+  <section id="lol-poll" class="animate-on-scroll slide-in-up">
+    <h2>League of Legends - The Community Opinion</h2>
+    <p>Who do you think will win League of Legends?</p>
+    <form id="lolPollForm">
+        <div class="poll-option">
+            <input type="radio" id="lol-team-valkyrae" name="lol_vote" value="team_valkyrae">
+            <label for="lol-team-valkyrae">Team Valkyrae</label>
+        </div>
+        <div class="poll-option">
+            <input type="radio" id="lol-team-tinakitten" name="lol_vote" value="team_tinakitten">
+            <label for="lol-team-tinakitten">Team TinaKitten</label>
+        </div>
+        <div class="poll-option">
+            <input type="radio" id="lol-team-kkatamina" name="lol_vote" value="team_kkatamina">
+            <label for="lol-team-kkatamina">Team Kkatamina</label>
+        </div>
+        <div class="poll-option">
+            <input type="radio" id="lol-team-fuslie" name="lol_vote" value="team_fuslie">
+            <label for="lol-team-fuslie">Team Fuslie</label>
+        </div>
+        <button type="submit">Cast Your Vote</button>
+    </form>
+
+    <div id="lolPollResults">
+        <h3>Current Results:</h3>
+        <p>Team Valkyrae: <span id="results-team_valkyrae">0</span> votes</p>
+        <p>Team TinaKitten: <span id="results-team_tinakitten">0</span> votes</p>
+        <p>Team Kkatamina: <span id="results-team_kkatamina">0</span> votes</p>
+        <p>Team Fuslie: <span id="results-team_fuslie">0</span> votes</p>
+    </div>
+    <div id="lolPollMessage"></div>
+  </section>
+
   <section id="schedule" class="animate-on-scroll slide-in-up">
     <h2>Event Schedule</h2>
     <ul>
