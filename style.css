@@ -156,7 +156,7 @@ section h3 {
 #format .format-content-area {
     display: grid;
     gap: 2rem;
-    position: relative; 
+    position: relative;
     grid-template-columns: repeat(4, 1fr);
 }
 
@@ -308,7 +308,7 @@ section h3 {
     color: var(--text-muted);
 }
 
-#schedule li, 
+#schedule li,
 #standings li {
     margin-bottom: 1.75rem;
     padding: 1.75rem;
@@ -324,7 +324,7 @@ section h3 {
     margin-bottom: 0;
 }
 
-#schedule li:hover, 
+#schedule li:hover,
 #standings li:hover {
     box-shadow: 0 8px 25px var(--shadow-color-dark);
     border-left-color: var(--primary-color);
@@ -440,6 +440,210 @@ h3 .local-event-datetime {
     animation: contentFadeOut var(--animation-duration) ease-in forwards;
 }
 
+#lol-poll p {
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#lolPollForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.poll-option {
+    display: flex;
+    align-items: center;
+    background-color: var(--surface-color-lighter);
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    width: 100%;
+    max-width: 500px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.poll-option:hover {
+    background-color: #2a3547;
+    border-color: var(--primary-color);
+}
+
+.poll-option input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    margin-right: 1rem;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.poll-option input[type="radio"]:checked {
+    border-color: var(--secondary-color);
+}
+
+.poll-option input[type="radio"]::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.poll-option input[type="radio"]:checked::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.poll-option label {
+    font-size: 1.1rem;
+    color: var(--on-surface);
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+#lolPollForm button[type="submit"] {
+    background-color: var(--primary-color);
+    color: var(--on-primary);
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-family: var(--font-family-main);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px var(--shadow-color-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#lolPollForm button[type="submit"]:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-color-dark);
+}
+
+#lolPollForm button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px var(--shadow-color-dark);
+}
+
+#lolPollResults {
+    margin-top: 2rem;
+    padding: 1.5rem 2rem;
+    background-color: var(--surface-color-lighter);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#lolPollResults h3 {
+    font-family: var(--font-family-headings);
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+#lolPollMessage {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 1rem;
+    min-height: 1.5em;
+}
+
+#lolPollMessage:not(:empty) {
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    background-color: var(--surface-color-lighter);
+    border: 1px solid var(--border-color);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.poll-result-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.poll-result-line:last-child {
+    margin-bottom: 0;
+}
+
+.poll-team-name {
+    font-size: 0.95rem;
+    color: var(--on-surface);
+    flex-basis: 120px;
+    flex-shrink: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.poll-bar-container {
+    flex-grow: 1;
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    height: 22px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.poll-bar {
+    background-color: var(--primary-color);
+    height: 100%;
+    border-radius: var(--border-radius);
+    transition: width 0.5s ease-in-out;
+    text-align: right;
+    color: var(--on-primary);
+    font-size: 0.8rem;
+    line-height: 22px;
+    padding-right: 5px;
+    box-sizing: border-box;
+}
+
+.poll-bar.leading {
+    background-color: var(--secondary-color);
+}
+
+.poll-vote-count {
+    font-weight: 600;
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+    min-width: 25px;
+    text-align: right;
+}
+.poll-votes-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-left: -5px;
+}
+
 @media (max-width: 1590px) {
     #teams .teams-content-area,
     #format .format-content-area {
@@ -449,16 +653,13 @@ h3 .local-event-datetime {
 
 
 @media (max-width: 1024px) {
-    :root {
-        /* Container width will be 95% as per this rule, max 1600px still applies from :root */
-    }
     header h1 {
         font-size: 3rem;
     }
     section h2 {
         font-size: 2.25rem;
     }
-    #teams .teams-content-area, 
+    #teams .teams-content-area,
     #format .format-content-area {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
@@ -514,8 +715,8 @@ h3 .local-event-datetime {
 
     #teams .teams-content-area,
     #format .format-content-area {
-        display: block; 
-        position: relative; 
+        display: block;
+        position: relative;
         min-height: 400px;
         grid-template-columns: none;
     }
@@ -526,21 +727,43 @@ h3 .local-event-datetime {
     #schedule li {
         margin-bottom: 1.5rem;
     }
-    
+
     .team-card, .format-card {
-        width: 100%; 
-        margin: 0 0 2rem 0; 
-        display: none; 
-        opacity: 0; 
-        border-radius: var(--border-radius); 
+        width: 100%;
+        margin: 0 0 2rem 0;
+        display: none;
+        opacity: 0;
+        border-radius: var(--border-radius);
     }
-    .team-card.active-card, 
+    .team-card.active-card,
     .format-card.active-card {
-        display: flex; 
+        display: flex;
     }
-    
+
     .carousel-controls {
         display: flex;
+    }
+}
+
+@media (max-width: 600px) {
+    .poll-option {
+        padding: 0.8rem 1rem;
+        max-width: 100%;
+    }
+
+    .poll-option label {
+        font-size: 1rem;
+    }
+
+    #lolPollForm button[type="submit"] {
+        width: 100%;
+        max-width: 500px;
+        font-size: 1rem;
+        padding: 0.9rem 1.5rem;
+    }
+
+    #lolPollResults {
+        padding: 1rem;
     }
 }
 
@@ -575,5 +798,21 @@ h3 .local-event-datetime {
     }
     .gcal-link span {
         display: inline;
+    }
+    .poll-team-name {
+        flex-basis: 100px;
+        font-size: 0.85rem;
+    }
+    .poll-bar-container {
+        height: 20px;
+    }
+    .poll-bar {
+        line-height: 20px;
+    }
+    .poll-vote-count {
+        font-size: 0.85rem;
+    }
+    .poll-votes-text {
+        display: none;
     }
 }
