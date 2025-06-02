@@ -7,14 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const hourInOriginalTZ = parseInt(el.dataset.hour);
         const minute = parseInt(el.dataset.minute);
         const originalTZ = el.dataset.timezone;
-        let hourUTC = hourInOriginalTZ;
-
-        if (originalTZ === 'America/Los_Angeles') {
-            hourUTC = hourInOriginalTZ + 7;
-        }
 
         try {
-            const eventDate = new Date(Date.UTC(year, month, day, hourUTC, minute));
+            const eventDateUTC = new Date(Date.UTC(year, month -1, day, hourInOriginalTZ, minute));
+
             const dateTimeOptions = {
                 weekday: 'short',
                 year: 'numeric',
@@ -24,10 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 minute: 'numeric',
                 timeZoneName: 'short'
             };
-            el.textContent = eventDate.toLocaleString(undefined, dateTimeOptions);
+            el.textContent = eventDateUTC.toLocaleString(undefined, dateTimeOptions);
+
         } catch (e) {
+            console.error("Error formatting date for element", el, e);
             const minuteString = String(minute).padStart(2, '0');
-            const fallbackDate = new Date(year, month, day);
+            const fallbackDate = new Date(year, month - 1, day);
             const dateDisplayOptions = { month: 'long', day: 'numeric', year: 'numeric' };
             el.textContent = `${fallbackDate.toLocaleDateString(undefined, dateDisplayOptions)} at ${hourInOriginalTZ}:${minuteString} ${originalTZ.replace('_', ' ')} (Check Google Calendar for your local time)`;
         }
@@ -39,58 +37,63 @@ document.addEventListener('DOMContentLoaded', function() {
         const prevButton = document.querySelector(config.prevButtonSelector);
         const nextButton = document.querySelector(config.nextButtonSelector);
         const controlsContainer = document.querySelector(config.controlsSelector);
-        
+
         if (!contentArea || cards.length === 0 || !controlsContainer) {
             if(controlsContainer) controlsContainer.style.display = 'none';
             return;
         }
 
         let currentIndex = 0;
-        let isMobile = window.innerWidth <= 768;
-        const animationDuration = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--animation-duration') || '0.4') * 1000;
+        let isMobile = window.innerWidth <= 850;
 
         function showCard(indexToShow) {
             const currentCard = cards[currentIndex];
             const nextCard = cards[indexToShow];
 
-            if (currentCard && currentCard !== nextCard) {
-                currentCard.classList.add('card-content-fade-out');
-                currentCard.addEventListener('animationend', function onHide() {
-                    this.style.display = 'none';
-                    this.classList.remove('card-content-fade-out');
-                    this.classList.remove('active-card');
-                    this.removeEventListener('animationend', onHide);
+            if (isMobile) {
+                if (currentCard && currentCard !== nextCard) {
+                    currentCard.classList.add('card-content-fade-out');
+                    currentCard.addEventListener('animationend', function onHide() {
+                        this.style.display = 'none';
+                        this.classList.remove('card-content-fade-out');
+                        this.classList.remove('active-card');
+                        this.removeEventListener('animationend', onHide);
 
-                    if (nextCard) {
-                        nextCard.style.opacity = '0';
-                        nextCard.style.display = 'flex';
-                        nextCard.classList.add('active-card');
-                        nextCard.classList.add('card-content-fade-in');
-                        nextCard.addEventListener('animationend', function onShow() {
-                            this.classList.remove('card-content-fade-in');
-                            this.style.opacity = '1';
-                            this.removeEventListener('animationend', onShow);
-                        }, { once: true });
-                    }
-                }, { once: true });
-            } else if (nextCard) {
-                cards.forEach(c => { 
-                    c.style.display = 'none'; 
-                    c.classList.remove('active-card');
-                    c.classList.remove('card-content-fade-in');
-                    c.classList.remove('card-content-fade-out');
+                        if (nextCard) {
+                            nextCard.style.opacity = '0';
+                            nextCard.style.display = 'flex';
+                            nextCard.classList.add('active-card');
+                            nextCard.classList.add('card-content-fade-in');
+                            nextCard.addEventListener('animationend', function onShow() {
+                                this.classList.remove('card-content-fade-in');
+                                this.style.opacity = '1';
+                                this.removeEventListener('animationend', onShow);
+                            }, { once: true });
+                        }
+                    }, { once: true });
+                } else if (nextCard) {
+                    cards.forEach(c => {
+                        c.style.display = 'none';
+                        c.classList.remove('active-card', 'card-content-fade-in', 'card-content-fade-out');
+                    });
+                    nextCard.style.opacity = '0';
+                    nextCard.style.display = 'flex';
+                    nextCard.classList.add('active-card');
+                    nextCard.classList.add('card-content-fade-in');
+                    nextCard.addEventListener('animationend', function onShowInitial() {
+                        this.classList.remove('card-content-fade-in');
+                        this.style.opacity = '1';
+                        this.removeEventListener('animationend', onShowInitial);
+                    }, { once: true });
+                }
+            } else {
+                cards.forEach(card => {
+                    card.style.display = 'flex';
+                    card.style.opacity = '1';
+                    card.classList.remove('active-card', 'card-content-fade-in', 'card-content-fade-out');
                 });
-                nextCard.style.opacity = '0';
-                nextCard.style.display = 'flex';
-                nextCard.classList.add('active-card');
-                nextCard.classList.add('card-content-fade-in');
-                 nextCard.addEventListener('animationend', function onShowInitial() {
-                    this.classList.remove('card-content-fade-in');
-                    this.style.opacity = '1';
-                    this.removeEventListener('animationend', onShowInitial);
-                }, { once: true });
             }
-            
+
             currentIndex = indexToShow;
             if (prevButton) prevButton.disabled = currentIndex === 0;
             if (nextButton) nextButton.disabled = currentIndex === cards.length - 1;
@@ -98,38 +101,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
         function handleResize() {
-            const currentlyMobile = window.innerWidth <= 768;
-            isMobile = currentlyMobile;
-
-            if (isMobile) {
-                controlsContainer.style.display = 'flex';
-                contentArea.classList.add('mobile-view');
-                cards.forEach((card, i) => {
-                    if (i === currentIndex) {
+            const currentlyMobile = window.innerWidth <= 850;
+            if (isMobile !== currentlyMobile) {
+                isMobile = currentlyMobile;
+                if (isMobile) {
+                    controlsContainer.style.display = 'flex';
+                    contentArea.classList.add('mobile-view');
+                    showCard(currentIndex);
+                } else {
+                    controlsContainer.style.display = 'none';
+                    contentArea.classList.remove('mobile-view');
+                    cards.forEach(card => {
                         card.style.display = 'flex';
-                        card.classList.add('active-card');
-                        card.style.opacity = '1'; 
-                    } else {
-                        card.style.display = 'none';
-                        card.classList.remove('active-card');
-                        card.style.opacity = '0';
-                    }
-                });
-                showCard(currentIndex); 
-            } else {
-                controlsContainer.style.display = 'none';
-                contentArea.classList.remove('mobile-view');
-                cards.forEach(card => {
-                    card.style.display = 'flex'; 
-                    card.classList.remove('active-card');
-                    card.style.opacity = '1';
-                    card.classList.remove('card-content-fade-in');
-                    card.classList.remove('card-content-fade-out');
-                });
+                        card.style.opacity = '1';
+                        card.classList.remove('active-card', 'card-content-fade-in', 'card-content-fade-out');
+                    });
+                }
+            } else if (isMobile) {
+                showCard(currentIndex);
             }
         }
-        
-        handleResize(); 
+
+        handleResize();
 
         if (prevButton && nextButton) {
             prevButton.addEventListener('click', () => {
@@ -164,6 +157,115 @@ document.addEventListener('DOMContentLoaded', function() {
         controlsSelector: '#format .format-controls'
     });
 
+    const lolPollForm = document.getElementById('lolPollForm');
+    const lolPollMessageDiv = document.getElementById('lolPollMessage');
+    const lolPollResultsSpans = {
+        team_valkyrae: document.getElementById('results-team_valkyrae'),
+        team_tinakitten: document.getElementById('results-team_tinakitten'),
+        team_kkatamina: document.getElementById('results-team_kkatamina'),
+        team_fuslie: document.getElementById('results-team_fuslie')
+    };
+
+    function updateLolPollDisplay(results) {
+	if (!results) return;
+
+	let totalVotes = 0;
+	for (const teamKey in results) {
+	    totalVotes += (results[teamKey] || 0);
+	}
+
+	let maxVotes = 0;
+	if (totalVotes > 0) {
+	    for (const teamKey in results) {
+		if (results[teamKey] > maxVotes) {
+		    maxVotes = results[teamKey];
+		}
+	    }
+	}
+
+
+	for (const teamKey in results) {
+	    const voteCount = results[teamKey] || 0;
+	    const percentage = (totalVotes > 0) ? (voteCount / totalVotes) * 100 : 0;
+
+	    const voteCountSpan = document.getElementById(`results-${teamKey}`);
+	    if (voteCountSpan) {
+		voteCountSpan.textContent = voteCount;
+	    }
+
+	    const barElement = document.getElementById(`bar-${teamKey}`);
+	    if (barElement) {
+		barElement.style.width = `${percentage}%`;
+		barElement.textContent = `${Math.round(percentage)}%`;
+
+		if (voteCount === maxVotes && totalVotes > 0) {
+		    barElement.classList.add('leading');
+		} else {
+		    barElement.classList.remove('leading');
+		}
+	    }
+	}
+    }
+
+    async function fetchLolPollResults() {
+        const workerUrl = 'https://poll.roomierumble.com';
+        try {
+            const response = await fetch(workerUrl);
+            if (!response.ok) {
+                const errorData = await response.text();
+                throw new Error(`HTTP error! status: ${response.status}, ${errorData}`);
+            }
+            const results = await response.json();
+            updateLolPollDisplay(results);
+        } catch (error) {
+            console.error('Error fetching LoL poll results:', error);
+            if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Error fetching poll results.';
+        }
+    }
+
+    if (lolPollForm) {
+        lolPollForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(lolPollForm);
+            const selectedOption = formData.get('lol_vote');
+
+            if (!selectedOption) {
+                if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Please select a team to vote for.';
+                return;
+            }
+
+            if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'Submitting your vote...';
+
+            const workerUrl = 'https://poll.roomierumble.com';
+
+            try {
+                const response = await fetch(workerUrl, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (lolPollMessageDiv) lolPollMessageDiv.textContent = data.message || 'Vote processed!';
+                    if (data.results) {
+                        updateLolPollDisplay(data.results);
+                    }
+                } else {
+                    if (lolPollMessageDiv) lolPollMessageDiv.textContent = `Error: ${data.message || 'Could not submit vote.'}`;
+                }
+            } catch (error) {
+                console.error('Error submitting LoL poll vote:', error);
+                if (lolPollMessageDiv) lolPollMessageDiv.textContent = 'An error occurred. Please try again.';
+            }
+        });
+    }
+
+    if (document.getElementById('lol-poll')) {
+         fetchLolPollResults();
+    }
+
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     const observerOptions = {
         root: null,
@@ -181,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     animatedElements.forEach(el => {
         if (el) {
-             observer.observe(el);
+            observer.observe(el);
         }
     });
 });
