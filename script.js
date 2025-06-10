@@ -1,34 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
     const dateTimeElements = document.querySelectorAll('.local-event-datetime');
     dateTimeElements.forEach(el => {
-        const year = parseInt(el.dataset.year);
-        const month = parseInt(el.dataset.month);
-        const day = parseInt(el.dataset.day);
-        const hourInOriginalTZ = parseInt(el.dataset.hour);
-        const minute = parseInt(el.dataset.minute);
-        const originalTZ = el.dataset.timezone;
+	try {
+	    const year = parseInt(el.dataset.year);
+	    const month = parseInt(el.dataset.month);
+	    const day = parseInt(el.dataset.day);
+	    const hour = parseInt(el.dataset.hour);
+	    const minute = parseInt(el.dataset.minute);
 
-        try {
-            const eventDateUTC = new Date(Date.UTC(year, month -1, day, hourInOriginalTZ, minute));
+	    const ampm = hour >= 12 ? 'PM' : 'AM';
+	    let displayHour = hour % 12;
+	    if (displayHour === 0) {
+		displayHour = 12;
+	    }
+	    const minuteString = String(minute).padStart(2, '0');
+	    const timeString = `${displayHour}:${minuteString} ${ampm}`;
 
-            const dateTimeOptions = {
-                weekday: 'short',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                timeZoneName: 'short'
-            };
-            el.textContent = eventDateUTC.toLocaleString(undefined, dateTimeOptions);
+	    const dateForFormatting = new Date(year, month - 1, day);
+	    const dateOptions = { month: 'long', day: 'numeric' };
+	    const dateString = dateForFormatting.toLocaleDateString(undefined, dateOptions);
 
-        } catch (e) {
-            console.error("Error formatting date for element", el, e);
-            const minuteString = String(minute).padStart(2, '0');
-            const fallbackDate = new Date(year, month - 1, day);
-            const dateDisplayOptions = { month: 'long', day: 'numeric', year: 'numeric' };
-            el.textContent = `${fallbackDate.toLocaleDateString(undefined, dateDisplayOptions)} at ${hourInOriginalTZ}:${minuteString} ${originalTZ.replace('_', ' ')} (Check Google Calendar for your local time)`;
-        }
+	    el.textContent = `${dateString} at ${timeString} PDT`;
+
+	} catch (e) {
+	    el.textContent = "See Google Calendar for event time.";
+	    console.error("Error formatting simple date for element", el, e);
+	}
     });
 
     function setupContentSwitcher(config) {
