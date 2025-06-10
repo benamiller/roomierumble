@@ -834,7 +834,7 @@ h3 .local-event-datetime {
 }
 
 .past-poll-bar-container {
-    flex-grow: 1;
+    width: 130px;
     background-color: var(--surface-color);
     border-radius: var(--border-radius);
     height: 22px;
