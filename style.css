@@ -1285,6 +1285,28 @@ h3 .local-event-datetime {
 	padding: 0 0.75rem;
 	font-size: 1rem;
     }
+    .past-poll-result-line {
+	flex-wrap: wrap;
+	gap: 5px;
+	padding: 0.25rem 0;
+    }
+    .past-poll-team-name {
+	flex-basis: auto;
+	flex-grow: 1;
+    }
+    .past-poll-vote-details {
+	flex-basis: auto;
+	text-align: right;
+	font-size: 0.9rem;
+    }
+    .past-poll-bar-container {
+	flex-basis: 100%;
+	order: 3;
+	height: 18px;
+    }
+    .past-poll-bar {
+	height: 100%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1395,5 +1417,15 @@ h3 .local-event-datetime {
     }
     .placement-match .match-type {
 	top: 2px;
+    }
+    .past-poll-team-name {
+	font-size: 0.9rem;
+    }
+    .past-poll-vote-details {
+	font-size: 0.8rem;
+	min-width: unset;
+    }
+    .past-poll-card {
+	padding: 1.25rem 1rem;
     }
 }
