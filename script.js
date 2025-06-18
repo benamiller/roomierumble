@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const lolPollMessageDiv = document.getElementById('lolPollMessage');
     const lolPollVoteButton = lolPollForm ? lolPollForm.querySelector('button[type="submit"]') : null;
     const lolPollRadioButtons = lolPollForm ? lolPollForm.querySelectorAll('input[type="radio"]') : null;
-    const VOTE_STORAGE_KEY = 'roomieRumble_NBA2K25';
+    const VOTE_STORAGE_KEY = 'roomieRumble_CS2';
 
     const lolPollResultsSpans = {
         team_valkyrae: document.getElementById('results-team_valkyrae'),
